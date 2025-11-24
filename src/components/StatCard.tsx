@@ -9,7 +9,7 @@ interface StatCardProps {
     value: string;
     positive: boolean;
   };
-  color?: 'blue' | 'green' | 'orange' | 'cyan' | 'pink' | 'teal';
+  color?: 'blue' | 'green' | 'orange' | 'cyan' | 'pink' | 'teal' | 'red';
 }
 
 const colorClasses = {
@@ -48,6 +48,12 @@ const colorClasses = {
     shadow: 'shadow-teal-500/30',
     bg: 'bg-teal-500/10',
     border: 'border-teal-500/30',
+  },
+  red: {
+    gradient: 'from-red-500 to-red-600',
+    shadow: 'shadow-red-500/30',
+    bg: 'bg-red-500/10',
+    border: 'border-red-500/30',
   },
 };
 
