@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { GlobalFilters, FilterValues } from '../components/GlobalFilters';
 import { StatCard } from '../components/StatCard';
-import { DataTable, Column } from '../components/DataTable';
+import { InvoiceTable } from '../components/InvoiceTable';
 import { FileCheck, DollarSign, Clock, CheckCircle } from 'lucide-react';
 
 export const InvoiceTracker: React.FC = () => {
@@ -10,59 +10,142 @@ export const InvoiceTracker: React.FC = () => {
     months: [new Date().toLocaleString('default', { month: 'long' })],
   });
 
-  const columns: Column[] = [
-    { key: 'invoiceNumber', label: 'Invoice #', sortable: true },
-    { key: 'po', label: 'PO' },
-    { key: 'project', label: 'Project' },
-    { key: 'invoiceDate', label: 'Invoice Date', sortable: true },
-    { key: 'dueDate', label: 'Due Date', sortable: true },
-    { key: 'amount', label: 'Amount', sortable: true, render: (value) => `$${value?.toLocaleString() || 0}` },
-    { key: 'status', label: 'Status', render: (value) => (
-      <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-        value === 'Paid' ? 'bg-green-500/20 text-green-400 border border-green-500/30' :
-        value === 'Pending' ? 'bg-orange-500/20 text-orange-400 border border-orange-500/30' :
-        value === 'Overdue' ? 'bg-red-500/20 text-red-400 border border-red-500/30' :
-        'bg-slate-500/20 text-slate-400 border border-slate-500/30'
-      }`}>
-        {value}
-      </span>
-    )},
-  ];
-
   const invoiceData = [
-    { id: 1, invoiceNumber: 'INV-2024-001', po: 'PO-2024-001', project: 'E-Commerce Platform', invoiceDate: '2024-01-31', dueDate: '2024-02-15', amount: 45000, status: 'Paid' },
-    { id: 2, invoiceNumber: 'INV-2024-002', po: 'PO-2024-001', project: 'E-Commerce Platform', invoiceDate: '2024-02-29', dueDate: '2024-03-15', amount: 48000, status: 'Paid' },
-    { id: 3, invoiceNumber: 'INV-2024-003', po: 'PO-2024-002', project: 'Mobile App Development', invoiceDate: '2024-03-31', dueDate: '2024-04-15', amount: 35000, status: 'Pending' },
-    { id: 4, invoiceNumber: 'INV-2024-004', po: 'PO-2024-003', project: 'Cloud Migration', invoiceDate: '2024-04-30', dueDate: '2024-05-15', amount: 52000, status: 'Pending' },
-    { id: 5, invoiceNumber: 'INV-2024-005', po: 'PO-2024-001', project: 'E-Commerce Platform', invoiceDate: '2024-10-31', dueDate: '2024-11-10', amount: 42000, status: 'Overdue' },
+    {
+      invoiceId: 'inv-001',
+      invoiceNumber: 'INV-2024-001',
+      project: 'E-Commerce Platform',
+      projectManager: 'John Smith',
+      customer: 'TechCorp Inc',
+      poId: 'PO-2024-001',
+      invoiceDate: '2024-11-30',
+      dueDate: '2024-12-15',
+      status: 'Paid',
+      totalAmount: 48000,
+      months: [
+        { month: 'Sep 2024', hours: 80, amount: 12000 },
+        { month: 'Oct 2024', hours: 85, amount: 12750 },
+        { month: 'Nov 2024', hours: 155, amount: 23250 },
+      ],
+      employees: [
+        {
+          employeeId: 'emp-001',
+          name: 'John Smith',
+          billRate: 150,
+          totalHours: 160,
+          totalAmount: 24000,
+          months: [
+            { month: 'Sep 2024', hours: 40, amount: 6000 },
+            { month: 'Oct 2024', hours: 42, amount: 6300 },
+            { month: 'Nov 2024', hours: 78, amount: 11700 },
+          ],
+        },
+        {
+          employeeId: 'emp-002',
+          name: 'Sarah Johnson',
+          billRate: 150,
+          totalHours: 160,
+          totalAmount: 24000,
+          months: [
+            { month: 'Sep 2024', hours: 40, amount: 6000 },
+            { month: 'Oct 2024', hours: 43, amount: 6450 },
+            { month: 'Nov 2024', hours: 77, amount: 11550 },
+          ],
+        },
+      ],
+    },
+    {
+      invoiceId: 'inv-002',
+      invoiceNumber: 'INV-2024-002',
+      project: 'Mobile App Development',
+      projectManager: 'Emily Davis',
+      customer: 'StartupXYZ',
+      poId: 'PO-2024-002',
+      invoiceDate: '2024-11-30',
+      dueDate: '2024-12-15',
+      status: 'Pending',
+      totalAmount: 42000,
+      months: [
+        { month: 'Sep 2024', hours: 95, amount: 13300 },
+        { month: 'Oct 2024', hours: 92, amount: 12880 },
+        { month: 'Nov 2024', hours: 113, amount: 15820 },
+      ],
+      employees: [
+        {
+          employeeId: 'emp-003',
+          name: 'Michael Chen',
+          billRate: 140,
+          totalHours: 150,
+          totalAmount: 21000,
+          months: [
+            { month: 'Sep 2024', hours: 47, amount: 6580 },
+            { month: 'Oct 2024', hours: 46, amount: 6440 },
+            { month: 'Nov 2024', hours: 57, amount: 7980 },
+          ],
+        },
+        {
+          employeeId: 'emp-004',
+          name: 'David Wilson',
+          billRate: 140,
+          totalHours: 150,
+          totalAmount: 21000,
+          months: [
+            { month: 'Sep 2024', hours: 48, amount: 6720 },
+            { month: 'Oct 2024', hours: 46, amount: 6440 },
+            { month: 'Nov 2024', hours: 56, amount: 7840 },
+          ],
+        },
+      ],
+    },
+    {
+      invoiceId: 'inv-003',
+      invoiceNumber: 'INV-2024-003',
+      project: 'Cloud Migration',
+      projectManager: 'Michael Chen',
+      customer: 'Enterprise Solutions',
+      poId: 'PO-2024-003',
+      invoiceDate: '2024-10-31',
+      dueDate: '2024-11-10',
+      status: 'Overdue',
+      totalAmount: 35200,
+      months: [
+        { month: 'Aug 2024', hours: 65, amount: 10400 },
+        { month: 'Sep 2024', hours: 60, amount: 9600 },
+        { month: 'Oct 2024', hours: 95, amount: 15200 },
+      ],
+      employees: [
+        {
+          employeeId: 'emp-005',
+          name: 'Emily Davis',
+          billRate: 160,
+          totalHours: 110,
+          totalAmount: 17600,
+          months: [
+            { month: 'Aug 2024', hours: 32, amount: 5120 },
+            { month: 'Sep 2024', hours: 30, amount: 4800 },
+            { month: 'Oct 2024', hours: 48, amount: 7680 },
+          ],
+        },
+        {
+          employeeId: 'emp-006',
+          name: 'Robert Brown',
+          billRate: 160,
+          totalHours: 110,
+          totalAmount: 17600,
+          months: [
+            { month: 'Aug 2024', hours: 33, amount: 5280 },
+            { month: 'Sep 2024', hours: 30, amount: 4800 },
+            { month: 'Oct 2024', hours: 47, amount: 7520 },
+          ],
+        },
+      ],
+    },
   ];
 
-  const renderExpandedRow = (row: any) => {
-    const details = [
-      { employee: 'John Smith', effort: 80, cost: 12000 },
-      { employee: 'Sarah Johnson', effort: 90, cost: 13500 },
-      { employee: 'Michael Chen', effort: 70, cost: 10500 },
-    ];
-
-    return (
-      <div className="space-y-3">
-        <h4 className="text-sm font-semibold text-white mb-3">Invoice Details</h4>
-        {details.map((detail, idx) => (
-          <div key={idx} className="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg">
-            <span className="text-sm text-slate-300">{detail.employee}</span>
-            <div className="flex items-center gap-4 text-sm">
-              <span className="text-slate-400">{detail.effort} hrs</span>
-              <span className="text-green-400 font-semibold">${detail.cost.toLocaleString()}</span>
-            </div>
-          </div>
-        ))}
-        <div className="flex items-center justify-between p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg mt-4">
-          <span className="text-sm font-semibold text-white">Total</span>
-          <span className="text-lg font-bold text-blue-400">$36,000</span>
-        </div>
-      </div>
-    );
-  };
+  const totalInvoiced = invoiceData.reduce((sum, inv) => sum + inv.totalAmount, 0);
+  const paidInvoices = invoiceData.filter(inv => inv.status === 'Paid').reduce((sum, inv) => sum + inv.totalAmount, 0);
+  const pendingInvoices = invoiceData.filter(inv => inv.status === 'Pending').reduce((sum, inv) => sum + inv.totalAmount, 0);
+  const overdueInvoices = invoiceData.filter(inv => inv.status === 'Overdue').reduce((sum, inv) => sum + inv.totalAmount, 0);
 
   return (
     <div>
@@ -75,20 +158,37 @@ export const InvoiceTracker: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <StatCard title="Total Invoiced" value="$398K" icon={FileCheck} color="blue" />
-        <StatCard title="Collected" value="$345K" icon={CheckCircle} color="green" />
-        <StatCard title="Pending" value="$45K" icon={Clock} color="orange" />
-        <StatCard title="Overdue" value="$8K" icon={DollarSign} color="pink" />
+        <StatCard
+          title="Total Invoiced"
+          value={`$${(totalInvoiced / 1000).toFixed(0)}K`}
+          icon={FileCheck}
+          color="blue"
+        />
+        <StatCard
+          title="Collected"
+          value={`$${(paidInvoices / 1000).toFixed(0)}K`}
+          icon={CheckCircle}
+          color="green"
+        />
+        <StatCard
+          title="Pending"
+          value={`$${(pendingInvoices / 1000).toFixed(0)}K`}
+          icon={Clock}
+          color="orange"
+        />
+        <StatCard
+          title="Overdue"
+          value={`$${(overdueInvoices / 1000).toFixed(0)}K`}
+          icon={DollarSign}
+          color="red"
+        />
       </div>
 
       <div className="mb-8">
-        <DataTable
-          columns={columns}
+        <InvoiceTable
           data={invoiceData}
-          expandable={true}
-          renderExpandedRow={renderExpandedRow}
-          onEdit={(row) => console.log('Edit', row)}
-          onDelete={(row) => console.log('Delete', row)}
+          onEdit={(invoice) => console.log('Edit', invoice)}
+          onDelete={(invoice) => console.log('Delete', invoice)}
         />
       </div>
     </div>
