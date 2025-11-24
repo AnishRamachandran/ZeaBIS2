@@ -7,7 +7,7 @@ import { FileCheck, DollarSign, Clock, CheckCircle } from 'lucide-react';
 export const InvoiceTracker: React.FC = () => {
   const [filters, setFilters] = useState<FilterValues>({
     year: new Date().getFullYear().toString(),
-    month: new Date().toLocaleString('default', { month: 'long' }),
+    months: [new Date().toLocaleString('default', { month: 'long' })],
   });
 
   const columns: Column[] = [
@@ -66,16 +66,13 @@ export const InvoiceTracker: React.FC = () => {
 
   return (
     <div>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white mb-2">Invoice Tracker</h1>
-        <p className="text-slate-400">Track invoice status and collections</p>
+      <div className="mb-8 flex items-start justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-white mb-2">Invoice Tracker</h1>
+          <p className="text-slate-400">Track invoice status and collections</p>
+        </div>
+        <GlobalFilters filters={filters} onFilterChange={setFilters} />
       </div>
-
-      <GlobalFilters
-        filters={filters}
-        onFilterChange={setFilters}
-        availableFilters={['year', 'month', 'project', 'invoice', 'po']}
-      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <StatCard title="Total Invoiced" value="$398K" icon={FileCheck} color="blue" />
