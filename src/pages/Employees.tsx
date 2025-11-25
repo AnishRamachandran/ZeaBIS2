@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { GlobalFilters, FilterValues } from '../components/GlobalFilters';
 import { StatCard } from '../components/StatCard';
 import { DataTable, Column } from '../components/DataTable';
+import { AddEmployeeForm, EmployeeFormData } from '../components/AddEmployeeForm';
 import { Users, UserCheck, UserX, DollarSign, Plus } from 'lucide-react';
 
 export const Employees: React.FC = () => {
   const [filters, setFilters] = useState<FilterValues>({});
+  const [showAddEmployee, setShowAddEmployee] = useState(false);
 
   const columns: Column[] = [
     { key: 'name', label: 'Name', sortable: true },
@@ -41,12 +43,20 @@ export const Employees: React.FC = () => {
         </div>
         <div className="flex items-center gap-3">
           <GlobalFilters filters={filters} onFilterChange={setFilters} />
-          <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all shadow-lg shadow-blue-500/30">
+          <button
+            onClick={() => setShowAddEmployee(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all shadow-lg shadow-blue-500/30">
             <Plus className="w-5 h-5" />
             Add Employee
           </button>
         </div>
       </div>
+
+      <AddEmployeeForm
+        isOpen={showAddEmployee}
+        onClose={() => setShowAddEmployee(false)}
+        onSave={(employee: EmployeeFormData) => console.log('New employee:', employee)}
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <StatCard title="Total Employees" value={156} icon={Users} color="blue" />

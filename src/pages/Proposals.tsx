@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { GlobalFilters, FilterValues } from '../components/GlobalFilters';
 import { StatCard } from '../components/StatCard';
 import { DataTable, Column } from '../components/DataTable';
+import { AddProposalForm, ProposalFormData } from '../components/AddProposalForm';
+import { AddPOForm, POFormData } from '../components/AddPOForm';
+import { AddInvoiceForm, InvoiceFormData } from '../components/AddInvoiceForm';
 import { FileText, FileCheck, Receipt, Plus, ChevronRight, ChevronDown, LayoutDashboard } from 'lucide-react';
 
 type TabType = 'dashboard' | 'proposals' | 'pos' | 'invoices';
@@ -56,6 +59,9 @@ export const Proposals: React.FC = () => {
   const [expandedProposals, setExpandedProposals] = useState<Set<string>>(new Set());
   const [expandedPOs, setExpandedPOs] = useState<Set<string>>(new Set());
   const [expandedInvoices, setExpandedInvoices] = useState<Set<string>>(new Set());
+  const [showAddProposal, setShowAddProposal] = useState(false);
+  const [showAddPO, setShowAddPO] = useState(false);
+  const [showAddInvoice, setShowAddInvoice] = useState(false);
 
   const toggleProposal = (id: string) => {
     const newSet = new Set(expandedProposals);
@@ -325,9 +331,15 @@ export const Proposals: React.FC = () => {
         </div>
         <div className="flex items-center gap-3">
           <GlobalFilters filters={filters} onFilterChange={setFilters} />
-          <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all shadow-lg shadow-blue-500/30">
+          <button
+            onClick={() => {
+              if (activeTab === 'proposals' || activeTab === 'dashboard') setShowAddProposal(true);
+              else if (activeTab === 'pos') setShowAddPO(true);
+              else if (activeTab === 'invoices') setShowAddInvoice(true);
+            }}
+            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all shadow-lg shadow-blue-500/30">
             <Plus className="w-5 h-5" />
-            Add {activeTab === 'proposals' ? 'Proposal' : activeTab === 'pos' ? 'PO' : 'Invoice'}
+            Add {activeTab === 'proposals' ? 'Proposal' : activeTab === 'pos' ? 'PO' : activeTab === 'invoices' ? 'Invoice' : 'Proposal'}
           </button>
         </div>
       </div>
@@ -501,6 +513,24 @@ export const Proposals: React.FC = () => {
           />
         )}
       </div>
+
+      <AddProposalForm
+        isOpen={showAddProposal}
+        onClose={() => setShowAddProposal(false)}
+        onSave={(proposal: ProposalFormData) => console.log('New proposal:', proposal)}
+      />
+
+      <AddPOForm
+        isOpen={showAddPO}
+        onClose={() => setShowAddPO(false)}
+        onSave={(po: POFormData) => console.log('New PO:', po)}
+      />
+
+      <AddInvoiceForm
+        isOpen={showAddInvoice}
+        onClose={() => setShowAddInvoice(false)}
+        onSave={(invoice: InvoiceFormData) => console.log('New invoice:', invoice)}
+      />
     </div>
   );
 };

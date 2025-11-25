@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { GlobalFilters, FilterValues } from '../components/GlobalFilters';
 import { StatCard } from '../components/StatCard';
 import { DataTable, Column } from '../components/DataTable';
+import { AddTimesheetForm, TimesheetFormData } from '../components/AddTimesheetForm';
 import { Clock, Plus, TrendingUp, Calendar } from 'lucide-react';
 
 export const Timesheets: React.FC = () => {
   const [filters, setFilters] = useState<FilterValues>({});
+  const [showAddTimesheet, setShowAddTimesheet] = useState(false);
 
   const columns: Column[] = [
     { key: 'date', label: 'Date', sortable: true },
@@ -33,12 +35,20 @@ export const Timesheets: React.FC = () => {
         </div>
         <div className="flex items-center gap-3">
           <GlobalFilters filters={filters} onFilterChange={setFilters} />
-          <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all shadow-lg shadow-blue-500/30">
+          <button
+            onClick={() => setShowAddTimesheet(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all shadow-lg shadow-blue-500/30">
             <Plus className="w-5 h-5" />
             Add Timesheet
           </button>
         </div>
       </div>
+
+      <AddTimesheetForm
+        isOpen={showAddTimesheet}
+        onClose={() => setShowAddTimesheet(false)}
+        onSave={(timesheet: TimesheetFormData) => console.log('New timesheet:', timesheet)}
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <StatCard title="Total Hours" value="3,797" icon={Clock} color="blue" />

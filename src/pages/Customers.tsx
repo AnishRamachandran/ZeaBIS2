@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { GlobalFilters, FilterValues } from '../components/GlobalFilters';
 import { StatCard } from '../components/StatCard';
 import { DataTable, Column } from '../components/DataTable';
+import { AddCustomerForm, CustomerFormData } from '../components/AddCustomerForm';
 import { Building2, Plus, FolderKanban, DollarSign, TrendingUp } from 'lucide-react';
 
 export const Customers: React.FC = () => {
   const [filters, setFilters] = useState<FilterValues>({});
+  const [showAddCustomer, setShowAddCustomer] = useState(false);
 
   const columns: Column[] = [
     { key: 'name', label: 'Customer Name', sortable: true },
@@ -41,12 +43,20 @@ export const Customers: React.FC = () => {
         </div>
         <div className="flex items-center gap-3">
           <GlobalFilters filters={filters} onFilterChange={setFilters} />
-          <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all shadow-lg shadow-blue-500/30">
+          <button
+            onClick={() => setShowAddCustomer(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all shadow-lg shadow-blue-500/30">
             <Plus className="w-5 h-5" />
             Add Customer
           </button>
         </div>
       </div>
+
+      <AddCustomerForm
+        isOpen={showAddCustomer}
+        onClose={() => setShowAddCustomer(false)}
+        onSave={(customer: CustomerFormData) => console.log('New customer:', customer)}
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <StatCard title="Total Customers" value={28} icon={Building2} color="blue" />
