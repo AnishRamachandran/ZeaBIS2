@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { Logo } from './Logo';
 import {
   LayoutDashboard,
   FolderKanban,
@@ -50,11 +51,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, currentPage, onNavigat
           } bg-slate-800/50 backdrop-blur-sm border-r border-slate-700 transition-all duration-300 flex flex-col`}
         >
           <div className="p-4 border-b border-slate-700 flex items-center justify-between">
-            {sidebarOpen && (
-              <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                ZeaBIS
-              </h1>
-            )}
+            <Logo size={sidebarOpen ? 'md' : 'sm'} showText={sidebarOpen} />
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className="p-2 hover:bg-slate-700/50 rounded-lg transition-colors"

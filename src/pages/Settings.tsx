@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Settings as SettingsIcon, Key, Users, Shield, Database, Palette, Bell, Lock } from 'lucide-react';
-import { ApiKeyManagement } from '../components/ApiKeyManagement';
+import { Settings as SettingsIcon, Key, Users, Shield, Database, Palette, Bell, Lock, FileText } from 'lucide-react';
+import { ApiKeyManagementEnhanced } from '../components/ApiKeyManagementEnhanced';
 import { RBACManagement } from '../components/RBACManagement';
 import { UserRoleMapping } from '../components/UserRoleMapping';
+import { AuditLog } from '../components/AuditLog';
 
-type TabType = 'api' | 'rbac' | 'users' | 'system' | 'appearance' | 'notifications' | 'security';
+type TabType = 'api' | 'rbac' | 'users' | 'audit' | 'system' | 'appearance' | 'notifications' | 'security';
 
 export const Settings: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>('api');
@@ -13,6 +14,7 @@ export const Settings: React.FC = () => {
     { id: 'api' as TabType, label: 'API Keys', icon: Key },
     { id: 'rbac' as TabType, label: 'Permissions', icon: Shield },
     { id: 'users' as TabType, label: 'Users', icon: Users },
+    { id: 'audit' as TabType, label: 'Audit Log', icon: FileText },
     { id: 'system' as TabType, label: 'System', icon: SettingsIcon },
     { id: 'appearance' as TabType, label: 'Appearance', icon: Palette },
     { id: 'notifications' as TabType, label: 'Notifications', icon: Bell },
@@ -60,7 +62,7 @@ export const Settings: React.FC = () => {
                 <p className="text-sm text-slate-400">Configure API keys for database tables</p>
               </div>
             </div>
-            <ApiKeyManagement />
+            <ApiKeyManagementEnhanced />
           </div>
         )}
 
@@ -91,6 +93,21 @@ export const Settings: React.FC = () => {
               </div>
             </div>
             <UserRoleMapping />
+          </div>
+        )}
+
+        {activeTab === 'audit' && (
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center shadow-lg shadow-cyan-500/30">
+                <FileText className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-white">Audit Log</h3>
+                <p className="text-sm text-slate-400">Track all system activities and changes</p>
+              </div>
+            </div>
+            <AuditLog />
           </div>
         )}
 
