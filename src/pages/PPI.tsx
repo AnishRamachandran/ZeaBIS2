@@ -53,7 +53,7 @@ interface Proposal {
   pos: PO[];
 }
 
-export const Proposals: React.FC = () => {
+export const PPI: React.FC = () => {
   const [filters, setFilters] = useState<FilterValues>({});
   const [activeTab, setActiveTab] = useState<TabType>('dashboard');
   const [expandedProposals, setExpandedProposals] = useState<Set<string>>(new Set());
@@ -326,8 +326,8 @@ export const Proposals: React.FC = () => {
     <div>
       <div className="mb-8 flex items-start justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2">Proposals & Billing</h1>
-          <p className="text-slate-400">Manage proposals, POs, and invoices</p>
+          <h1 className="text-3xl font-bold text-white mb-2">PPI Dashboard</h1>
+          <p className="text-slate-400">Proposal → PO → Invoice hierarchical view</p>
         </div>
         <div className="flex items-center gap-3">
           <GlobalFilters filters={filters} onFilterChange={setFilters} />

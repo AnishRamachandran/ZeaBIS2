@@ -35,6 +35,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, currentPage, onNavigat
     { id: 'projects', label: 'Projects', icon: FolderKanban },
     { id: 'employees', label: 'Employees', icon: Users },
     { id: 'customers', label: 'Customers', icon: Building2 },
+    { id: 'ppi', label: 'PPI', icon: LayoutDashboard },
     { id: 'proposals', label: 'Proposals', icon: FileText },
     { id: 'pos', label: 'Purchase Orders', icon: Receipt },
     { id: 'invoices-page', label: 'Invoices', icon: FileCheck },

@@ -6,6 +6,7 @@ import { Dashboard } from './pages/Dashboard';
 import { Projects } from './pages/Projects';
 import { Employees } from './pages/Employees';
 import { Customers } from './pages/Customers';
+import { PPI } from './pages/PPI';
 import { ProposalsPage } from './pages/ProposalsPage';
 import { POsPage } from './pages/POsPage';
 import { InvoicesPage } from './pages/InvoicesPage';
@@ -50,6 +51,8 @@ function AppContent() {
         return <Employees />;
       case 'customers':
         return <Customers />;
+      case 'ppi':
+        return <PPI />;
       case 'proposals':
         return <ProposalsPage />;
       case 'pos':
