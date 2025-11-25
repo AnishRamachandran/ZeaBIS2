@@ -1,6 +1,79 @@
-# Quick Start Guide - Local PostgreSQL Setup
+# Quick Start - PostgreSQL Not Running
 
-This is a quick reference for setting up ZeaBIS with local PostgreSQL.
+## ⚠️ Current Issue
+
+Your backend is configured but **PostgreSQL is not running** on localhost:5432.
+
+## Backend Configuration (Already Set)
+- Host: `localhost`
+- Port: `5432`
+- Database: `zeabis`
+- User: `zeabis_user`
+- Password: `zeabis`
+
+## Quick Solutions
+
+### Option 1: Docker (Fastest - 30 seconds)
+
+```bash
+docker run --name zeabis-postgres \
+  -e POSTGRES_USER=zeabis_user \
+  -e POSTGRES_PASSWORD=zeabis \
+  -e POSTGRES_DB=zeabis \
+  -p 5432:5432 \
+  -d postgres:15 && \
+sleep 5 && \
+docker cp /tmp/cc-agent/60664971/project/local_postgresql_migration.sql zeabis-postgres:/tmp/ && \
+docker exec zeabis-postgres psql -U zeabis_user -d zeabis -f /tmp/local_postgresql_migration.sql && \
+echo "✅ PostgreSQL ready!"
+```
+
+### Option 2: Install PostgreSQL
+
+```bash
+sudo apt-get update
+sudo apt-get install -y postgresql-15
+sudo systemctl start postgresql
+```
+
+Then create database:
+```bash
+sudo -u postgres psql -c "CREATE DATABASE zeabis;"
+sudo -u postgres psql -c "CREATE USER zeabis_user WITH PASSWORD 'zeabis';"
+sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE zeabis TO zeabis_user;"
+sudo -u postgres psql -d zeabis -c "GRANT ALL ON SCHEMA public TO zeabis_user;"
+```
+
+Run migrations:
+```bash
+psql -U zeabis_user -d zeabis -h localhost -f /tmp/cc-agent/60664971/project/local_postgresql_migration.sql
+```
+
+## After PostgreSQL is Running
+
+### Start Backend
+```bash
+cd /tmp/cc-agent/60664971/project/backend
+npm run dev
+```
+
+### Start Frontend (new terminal)
+```bash
+cd /tmp/cc-agent/60664971/project
+npm run dev
+```
+
+### Create First User
+```bash
+curl -X POST http://localhost:3001/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"email":"admin@zeabis.com","password":"Admin@123","firstName":"Admin","lastName":"User"}'
+```
+
+### Login
+Open http://localhost:5173 and login with:
+- Email: admin@zeabis.com
+- Password: Admin@123
 
 ## Prerequisites Checklist
 
