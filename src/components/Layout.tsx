@@ -36,6 +36,8 @@ export const Layout: React.FC<LayoutProps> = ({ children, currentPage, onNavigat
     { id: 'employees', label: 'Employees', icon: Users },
     { id: 'customers', label: 'Customers', icon: Building2 },
     { id: 'proposals', label: 'Proposals', icon: FileText },
+    { id: 'pos', label: 'Purchase Orders', icon: Receipt },
+    { id: 'invoices-page', label: 'Invoices', icon: FileCheck },
     { id: 'timesheets', label: 'TimeSheets', icon: Clock },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];

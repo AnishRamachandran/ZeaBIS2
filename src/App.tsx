@@ -6,15 +6,24 @@ import { Dashboard } from './pages/Dashboard';
 import { Projects } from './pages/Projects';
 import { Employees } from './pages/Employees';
 import { Customers } from './pages/Customers';
-import { Proposals } from './pages/Proposals';
+import { ProposalsPage } from './pages/ProposalsPage';
+import { POsPage } from './pages/POsPage';
+import { InvoicesPage } from './pages/InvoicesPage';
 import { Timesheets } from './pages/Timesheets';
 import { BillingTracker } from './pages/BillingTracker';
 import { InvoiceTracker } from './pages/InvoiceTracker';
 import { Settings } from './pages/Settings';
+import { FloatingAddButton } from './components/FloatingAddButton';
+import { AddProposalForm, ProposalFormData } from './components/AddProposalForm';
+import { AddPOForm, POFormData } from './components/AddPOForm';
+import { AddInvoiceForm, InvoiceFormData } from './components/AddInvoiceForm';
 
 function AppContent() {
   const { user, loading } = useAuth();
   const [currentPage, setCurrentPage] = useState('dashboard');
+  const [showAddProposal, setShowAddProposal] = useState(false);
+  const [showAddPO, setShowAddPO] = useState(false);
+  const [showAddInvoice, setShowAddInvoice] = useState(false);
 
   if (loading) {
     return (
@@ -42,7 +51,11 @@ function AppContent() {
       case 'customers':
         return <Customers />;
       case 'proposals':
-        return <Proposals />;
+        return <ProposalsPage />;
+      case 'pos':
+        return <POsPage />;
+      case 'invoices-page':
+        return <InvoicesPage />;
       case 'timesheets':
         return <Timesheets />;
       case 'billing':
@@ -57,9 +70,44 @@ function AppContent() {
   };
 
   return (
-    <Layout currentPage={currentPage} onNavigate={setCurrentPage}>
-      {renderPage()}
-    </Layout>
+    <>
+      <Layout currentPage={currentPage} onNavigate={setCurrentPage}>
+        {renderPage()}
+      </Layout>
+
+      <FloatingAddButton
+        onAddProposal={() => setShowAddProposal(true)}
+        onAddPO={() => setShowAddPO(true)}
+        onAddInvoice={() => setShowAddInvoice(true)}
+      />
+
+      <AddProposalForm
+        isOpen={showAddProposal}
+        onClose={() => setShowAddProposal(false)}
+        onSave={(proposal: ProposalFormData) => {
+          console.log('New proposal:', proposal);
+          setShowAddProposal(false);
+        }}
+      />
+
+      <AddPOForm
+        isOpen={showAddPO}
+        onClose={() => setShowAddPO(false)}
+        onSave={(po: POFormData) => {
+          console.log('New PO:', po);
+          setShowAddPO(false);
+        }}
+      />
+
+      <AddInvoiceForm
+        isOpen={showAddInvoice}
+        onClose={() => setShowAddInvoice(false)}
+        onSave={(invoice: InvoiceFormData) => {
+          console.log('New invoice:', invoice);
+          setShowAddInvoice(false);
+        }}
+      />
+    </>
   );
 }
 

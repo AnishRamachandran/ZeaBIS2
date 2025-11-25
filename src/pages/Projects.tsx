@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { GlobalFilters, FilterValues } from '../components/GlobalFilters';
 import { StatCard } from '../components/StatCard';
 import { DataTable, Column } from '../components/DataTable';
-import { AddProjectForm, ProjectFormData } from '../components/AddProjectForm';
+import { ProjectForm, ProjectFormData } from '../components/ProjectForm';
 import { FolderKanban, Plus, Activity, DollarSign, Users } from 'lucide-react';
 
 export const Projects: React.FC = () => {
@@ -106,10 +106,11 @@ export const Projects: React.FC = () => {
         </div>
       </div>
 
-      <AddProjectForm
+      <ProjectForm
         isOpen={showAddProject}
         onClose={() => setShowAddProject(false)}
         onSave={(project: ProjectFormData) => console.log('New project:', project)}
+        mode="add"
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">

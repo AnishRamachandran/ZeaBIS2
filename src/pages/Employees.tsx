@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { GlobalFilters, FilterValues } from '../components/GlobalFilters';
 import { StatCard } from '../components/StatCard';
 import { DataTable, Column } from '../components/DataTable';
-import { AddEmployeeForm, EmployeeFormData } from '../components/AddEmployeeForm';
+import { EmployeeForm, EmployeeFormData } from '../components/EmployeeForm';
 import { Users, UserCheck, UserX, DollarSign, Plus } from 'lucide-react';
 
 export const Employees: React.FC = () => {
@@ -52,10 +52,11 @@ export const Employees: React.FC = () => {
         </div>
       </div>
 
-      <AddEmployeeForm
+      <EmployeeForm
         isOpen={showAddEmployee}
         onClose={() => setShowAddEmployee(false)}
         onSave={(employee: EmployeeFormData) => console.log('New employee:', employee)}
+        mode="add"
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">

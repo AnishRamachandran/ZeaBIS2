@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { GlobalFilters, FilterValues } from '../components/GlobalFilters';
 import { StatCard } from '../components/StatCard';
 import { DataTable, Column } from '../components/DataTable';
-import { AddCustomerForm, CustomerFormData } from '../components/AddCustomerForm';
+import { CustomerForm, CustomerFormData } from '../components/CustomerForm';
 import { Building2, Plus, FolderKanban, DollarSign, TrendingUp } from 'lucide-react';
 
 export const Customers: React.FC = () => {
@@ -52,10 +52,11 @@ export const Customers: React.FC = () => {
         </div>
       </div>
 
-      <AddCustomerForm
+      <CustomerForm
         isOpen={showAddCustomer}
         onClose={() => setShowAddCustomer(false)}
         onSave={(customer: CustomerFormData) => console.log('New customer:', customer)}
+        mode="add"
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
