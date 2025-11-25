@@ -29,13 +29,13 @@ export const Layout: React.FC<LayoutProps> = ({ children, currentPage, onNavigat
 
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { id: 'billing', label: 'Billing Tracker', icon: Receipt },
+    { id: 'invoices', label: 'Invoice Tracker', icon: FileCheck },
     { id: 'projects', label: 'Projects', icon: FolderKanban },
     { id: 'employees', label: 'Employees', icon: Users },
     { id: 'customers', label: 'Customers', icon: Building2 },
     { id: 'proposals', label: 'Proposals', icon: FileText },
     { id: 'timesheets', label: 'TimeSheets', icon: Clock },
-    { id: 'billing', label: 'Billing Tracker', icon: Receipt },
-    { id: 'invoices', label: 'Invoice Tracker', icon: FileCheck },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
 
