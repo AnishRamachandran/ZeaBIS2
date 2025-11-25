@@ -184,6 +184,41 @@ export const InvoiceTracker: React.FC = () => {
         />
       </div>
 
+      <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 mb-8">
+        <div className="mb-4">
+          <h3 className="text-lg font-semibold text-white">Month-wise Hours Overview</h3>
+          <p className="text-sm text-slate-400">Total invoiced hours by month</p>
+        </div>
+        <div className="overflow-x-auto">
+          <div className="flex gap-4 pb-2">
+            {invoiceData.length > 0 && invoiceData[0].months.map((monthData) => {
+              const totalHoursForMonth = invoiceData.reduce((sum, invoice) => {
+                const monthEntry = invoice.months.find(m => m.month === monthData.month);
+                return sum + (monthEntry?.hours || 0);
+              }, 0);
+
+              const totalAmountForMonth = invoiceData.reduce((sum, invoice) => {
+                const monthEntry = invoice.months.find(m => m.month === monthData.month);
+                return sum + (monthEntry?.amount || 0);
+              }, 0);
+
+              return (
+                <div key={monthData.month} className="flex flex-col items-center min-w-[100px]">
+                  <div className="w-full bg-slate-700/50 rounded-lg p-3 hover:bg-slate-700 transition-colors">
+                    <div className="text-xs text-slate-400 mb-1 text-center">{monthData.month}</div>
+                    <div className="text-xl font-bold text-white text-center">{totalHoursForMonth}</div>
+                    <div className="text-xs text-slate-500 text-center">hours</div>
+                    <div className="text-sm font-semibold text-green-400 text-center mt-1">
+                      ${(totalAmountForMonth / 1000).toFixed(1)}K
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
       <div className="mb-8">
         <InvoiceTable
           data={invoiceData}
