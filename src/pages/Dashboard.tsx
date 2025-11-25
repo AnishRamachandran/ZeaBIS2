@@ -137,55 +137,55 @@ export const Dashboard: React.FC = () => {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h3 className="text-lg font-semibold text-white">Monthly Hours Trend</h3>
-              <p className="text-sm text-slate-400">Billed vs Invoiced Hours</p>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                <span className="text-xs text-slate-400">Billed</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span className="text-xs text-slate-400">Invoiced</span>
-              </div>
-            </div>
+      <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 mb-8">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h3 className="text-lg font-semibold text-white">Monthly Hours Trend</h3>
+            <p className="text-sm text-slate-400">Billed vs Invoiced Hours</p>
           </div>
-          <div className="h-64 flex items-end justify-between gap-2">
-            {monthlyTrendData.map((data, index) => {
-              const billedHeight = (data.billed / maxValue) * 100;
-              const invoicedHeight = (data.invoiced / maxValue) * 100;
-              return (
-                <div key={index} className="flex-1 flex flex-col items-center gap-2">
-                  <div className="w-full flex items-end justify-center gap-1 h-48">
-                    <div
-                      className="w-1/2 bg-gradient-to-t from-blue-500 to-blue-400 rounded-t hover:opacity-80 transition-opacity relative group"
-                      style={{ height: `${billedHeight}%` }}
-                    >
-                      <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-slate-900 px-2 py-1 rounded text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                        {data.billed}
-                      </div>
-                    </div>
-                    <div
-                      className="w-1/2 bg-gradient-to-t from-green-500 to-green-400 rounded-t hover:opacity-80 transition-opacity relative group"
-                      style={{ height: `${invoicedHeight}%` }}
-                    >
-                      <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-slate-900 px-2 py-1 rounded text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                        {data.invoiced}
-                      </div>
-                    </div>
-                  </div>
-                  <span className="text-xs text-slate-400">{data.month}</span>
-                </div>
-              );
-            })}
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+              <span className="text-xs text-slate-400">Billed</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+              <span className="text-xs text-slate-400">Invoiced</span>
+            </div>
           </div>
         </div>
+        <div className="h-64 flex items-end justify-between gap-2">
+          {monthlyTrendData.map((data, index) => {
+            const billedHeight = (data.billed / maxValue) * 100;
+            const invoicedHeight = (data.invoiced / maxValue) * 100;
+            return (
+              <div key={index} className="flex-1 flex flex-col items-center gap-2">
+                <div className="w-full flex items-end justify-center gap-1 h-48">
+                  <div
+                    className="w-1/2 bg-gradient-to-t from-blue-500 to-blue-400 rounded-t hover:opacity-80 transition-opacity relative group"
+                    style={{ height: `${billedHeight}%` }}
+                  >
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-slate-900 px-2 py-1 rounded text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                      {data.billed}
+                    </div>
+                  </div>
+                  <div
+                    className="w-1/2 bg-gradient-to-t from-green-500 to-green-400 rounded-t hover:opacity-80 transition-opacity relative group"
+                    style={{ height: `${invoicedHeight}%` }}
+                  >
+                    <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-slate-900 px-2 py-1 rounded text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                      {data.invoiced}
+                    </div>
+                  </div>
+                </div>
+                <span className="text-xs text-slate-400">{data.month}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
 
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
@@ -236,9 +236,6 @@ export const Dashboard: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
