@@ -98,6 +98,8 @@ export const BillingTable: React.FC<BillingTableProps> = ({ data, onSave }) => {
       'Active': 'bg-blue-500/20 text-blue-400 border-blue-500/30',
       'Closed': 'bg-slate-500/20 text-slate-400 border-slate-500/30',
       'On Hold': 'bg-red-500/20 text-red-400 border-red-500/30',
+      'Exhausted': 'bg-red-500/20 text-red-400 border-red-500/30',
+      'Revised': 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30',
     };
     return statusMap[status] || 'bg-slate-500/20 text-slate-400 border-slate-500/30';
   };
@@ -137,9 +139,22 @@ export const BillingTable: React.FC<BillingTableProps> = ({ data, onSave }) => {
           <td className="px-4 py-3 text-sm text-slate-300">{displayData.proposalId}</td>
           <td className="px-4 py-3 text-sm text-slate-300">{displayData.poId}</td>
           <td className="px-4 py-3">
-            <span className={`px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(displayData.poStatus)}`}>
-              {displayData.poStatus}
-            </span>
+            {isEditing ? (
+              <select
+                value={displayData.poStatus}
+                onChange={(e) => setEditedData(editedData ? { ...editedData, poStatus: e.target.value } : null)}
+                className="px-3 py-1 bg-slate-700 border border-slate-600 rounded-full text-xs font-medium text-slate-300 focus:outline-none focus:border-blue-500"
+              >
+                <option value="Active">Active</option>
+                <option value="Exhausted">Exhausted</option>
+                <option value="Revised">Revised</option>
+                <option value="Closed">Closed</option>
+              </select>
+            ) : (
+              <span className={`px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(displayData.poStatus)}`}>
+                {displayData.poStatus}
+              </span>
+            )}
           </td>
           <td className="px-4 py-3 text-sm text-right text-slate-300">{displayData.poHours.toLocaleString()}</td>
           <td className="px-4 py-3 text-sm text-right text-slate-300">${displayData.billRate}/hr</td>
