@@ -4,7 +4,7 @@ import { LogIn } from 'lucide-react';
 
 export const Login: React.FC = () => {
   const [email, setEmail] = useState('admin@zeabis.com');
-  const [password, setPassword] = useState('123');
+  const [password, setPassword] = useState('password123');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { signIn } = useAuth();
@@ -87,7 +87,7 @@ export const Login: React.FC = () => {
 
           <div className="mt-6 pt-6 border-t border-slate-700">
             <p className="text-xs text-slate-500 text-center">
-              Default credentials: admin@zeabis.com / 123
+              Default credentials: admin@zeabis.com / password123
             </p>
           </div>
         </div>
