@@ -10,7 +10,7 @@ docker rm zeabis-postgres 2>/dev/null
 echo "📦 Creating PostgreSQL container..."
 docker run --name zeabis-postgres \
   -e POSTGRES_USER=zeabis_user \
-  -e POSTGRES_PASSWORD=zeabis \
+  -e POSTGRES_PASSWORD=Zealogics@24 \
   -e POSTGRES_DB=zeabis \
   -p 5432:5432 \
   -d postgres:15
@@ -50,7 +50,7 @@ echo "  Host: localhost"
 echo "  Port: 5432"
 echo "  Database: zeabis"
 echo "  User: zeabis_user"
-echo "  Password: zeabis"
+echo "  Password: Zealogics@24"
 echo ""
 echo "Next steps:"
 echo "  1. Start backend:  cd backend && npm run dev"
